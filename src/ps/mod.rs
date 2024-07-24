@@ -59,6 +59,6 @@ mod tests {
     #[test]
     fn test() {
         //rsps().unwrap();
-        AArch64::exec().unwrap();
+        println!("{:?}", AArch64::exec().unwrap());
     }
 }

@@ -17,9 +17,9 @@ jobs:
           - x86_64
           - arm
           - aarch64
-        #toolchain:
-        #  - stable
-        #  - nightly
+        toolchain:
+          - stable
+          - nightly
     continue-on-error: true
     steps:
       - name: Checkout repository

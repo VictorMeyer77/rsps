@@ -53,10 +53,12 @@ pub fn rsps() -> Result<Vec<Process>, Error> {
 
 #[cfg(test)]
 mod tests {
-    use crate::ps::rsps;
+    use crate::ps::macos::AArch64;
+    use crate::ps::{Ps, rsps};
 
     #[test]
     fn test() {
-        rsps().unwrap();
+        //rsps().unwrap();
+        AArch64::exec().unwrap();
     }
 }

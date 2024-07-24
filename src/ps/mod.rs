@@ -59,6 +59,10 @@ mod tests {
     #[test]
     fn test() {
         //rsps().unwrap();
-        println!("{:?}", AArch64::exec().unwrap());
+        let tmp = AArch64::exec();
+        assert!(tmp.is_ok());
+        if tmp.is_err(){
+            tmp.unwrap();
+        }
     }
 }

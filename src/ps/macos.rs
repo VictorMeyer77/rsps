@@ -35,3 +35,24 @@ impl Ps for AArch64 {
         )
     }
 }
+
+
+#[cfg(test)]
+mod tests {
+    use std::env::consts;
+    use crate::ps::macos::AArch64;
+    use crate::ps::Ps;
+
+    #[test]
+    fn test() {
+        //if consts::OS == "macos" {
+            let processes = AArch64::exec().unwrap();
+            assert!(processes.len() > 10);
+            assert_eq!(processes[0].command, "/sbin/launchd");
+            assert_eq!(processes.last().unwrap().command, "ps -eo pid,ppid,uid,lstart,pcpu,pmem,stat,args")
+        //}
+    }
+
+
+
+}

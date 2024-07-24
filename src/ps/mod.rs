@@ -51,18 +51,3 @@ pub fn rsps() -> Result<Vec<Process>, Error> {
 }
 
 
-#[cfg(test)]
-mod tests {
-    use crate::ps::macos::AArch64;
-    use crate::ps::{Ps, rsps};
-
-    #[test]
-    fn test() {
-        //rsps().unwrap();
-        let tmp = AArch64::exec();
-        assert!(tmp.is_ok());
-        if tmp.is_err(){
-            tmp.unwrap();
-        }
-    }
-}

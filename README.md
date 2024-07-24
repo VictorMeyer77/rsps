@@ -1,14 +1,11 @@
 # rsps
 
-
-
 |         | linux | windows | macos |
 |---------|-------|---------|-------|
 | i686    |       |         |       |
 | x86-64  |       |         | X     |
 | ARM     |       |         |       |
 | Aarch64 |       |         | X     |
-
 
 ARCH
 
@@ -27,7 +24,7 @@ riscv64
 s390x
 sparc64
 
-OS 
+OS
 
 linux
 macos

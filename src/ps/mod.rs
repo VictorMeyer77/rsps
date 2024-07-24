@@ -2,6 +2,7 @@ use crate::ps::error::Error;
 use crate::ps::macos::Macos;
 use std::env::consts;
 use std::process::Output;
+use log::{debug, info, warn, error};
 
 pub mod error;
 pub mod macos;
@@ -27,7 +28,7 @@ pub trait Ps {
             if let Ok(process) = Self::parse_row(row) {
                 processes.push(process)
             } else {
-                println!("------- Invalid row {}", row) // todo replace log
+                warn!("Process could not be parse {}", row)
             }
         }
         Ok(processes)

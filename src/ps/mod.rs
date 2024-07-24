@@ -49,3 +49,14 @@ pub fn rsps() -> Result<Vec<Process>, Error> {
         }),
     }
 }
+
+
+#[cfg(test)]
+mod tests {
+    use crate::ps::rsps;
+
+    #[test]
+    fn test() {
+        rsps().unwrap();
+    }
+}

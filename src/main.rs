@@ -1,6 +1,6 @@
 use rsps::ps::{rsps, Process};
 
-fn main() {
+pub fn main() {
     display(rsps().unwrap())
 }
 
@@ -27,14 +27,4 @@ fn display(processes: Vec<Process>) {
             truncate_command
         );
     });
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::main;
-
-    #[test]
-    fn test() {
-        main();
-    }
 }

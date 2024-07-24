@@ -12,9 +12,14 @@ jobs:
           - macos-latest
           - ubuntu-latest
           - windows-latest
-        toolchain:
-          - stable
-          - nightly
+        arch:
+          - x86
+          - x86_64
+          - arm
+          - aarch64
+        #toolchain:
+        #  - stable
+        #  - nightly
     continue-on-error: true
     steps:
       - name: Checkout repository

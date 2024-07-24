@@ -1,8 +1,40 @@
-use rsps::ps::macos::AArch64;
-use rsps::ps::Ps;
-use std::env::consts;
+use rsps::ps::{rsps, Process};
 
 fn main() {
-    println!("{}, {}, {}", consts::ARCH, consts::OS, consts::FAMILY);
-    AArch64::display(AArch64::exec().unwrap());
+    display(rsps().unwrap())
+}
+
+fn display(processes: Vec<Process>) {
+    println!(
+        "{0: <6} | {1: <5} | {2: <5} | {3: <10} | {4: <5} | {5: <5} | {6: <6} | {7: <5}",
+        "pid", "ppid", "uid", "lstart", "pcpu", "pmem", "status", "command"
+    );
+    processes.iter().for_each(|process| {
+        let truncate_command = if process.command.len() < 100 {
+            &process.command
+        } else {
+            &process.command[..100]
+        };
+        println!(
+            "{0: <6} | {1: <5} | {2: <5} | {3: <10} | {4: <5} | {5: <5} | {6: <6} | {7: <5}",
+            process.pid,
+            process.ppid,
+            process.uid,
+            process.lstart,
+            process.pcpu,
+            process.pmem,
+            process.status,
+            truncate_command
+        );
+    });
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::main;
+
+    #[test]
+    fn test() {
+        main();
+    }
 }

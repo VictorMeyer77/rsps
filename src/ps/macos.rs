@@ -29,7 +29,7 @@ impl Ps for AArch64 {
     fn parse_date(date_chunks: &[&str]) -> Result<i64, Error> {
         let format = "%a %b %d %H:%M:%S %Y";
         Ok(
-            NaiveDateTime::parse_from_str(&format!("{}", date_chunks.join(" ")), format)?
+            NaiveDateTime::parse_from_str(date_chunks.join(" ").as_str(), format)?
                 .and_utc()
                 .timestamp(),
         )

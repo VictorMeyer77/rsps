@@ -1,51 +1,18 @@
 use chrono;
+use std::io;
 use std::num;
-use std::{fmt, io};
+use thiserror::Error;
 
+#[derive(Error, Debug)]
 pub enum Error {
-    ParseDate(chrono::ParseError),
-    ParseInt(num::ParseIntError),
-    ParseFloat(num::ParseFloatError),
-    IO(io::Error),
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Error::ParseDate(ref err) => write!(f, "{}", err),
-            Error::ParseInt(ref err) => write!(f, "{}", err),
-            Error::ParseFloat(ref err) => write!(f, "{}", err),
-            Error::IO(ref err) => write!(f, "{}", err),
-        }
-    }
-}
-
-impl fmt::Debug for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self)
-    }
-}
-
-impl From<chrono::ParseError> for Error {
-    fn from(value: chrono::ParseError) -> Self {
-        Error::ParseDate(value)
-    }
-}
-
-impl From<num::ParseIntError> for Error {
-    fn from(value: num::ParseIntError) -> Self {
-        Error::ParseInt(value)
-    }
-}
-
-impl From<num::ParseFloatError> for Error {
-    fn from(value: num::ParseFloatError) -> Self {
-        Error::ParseFloat(value)
-    }
-}
-
-impl From<io::Error> for Error {
-    fn from(value: io::Error) -> Self {
-        Error::IO(value)
-    }
+    #[error("rsps is not implemented for OS {os:} with architecture {arch:}.")]
+    Unimplemented { os: String, arch: String },
+    #[error("Error parsing date: {0}")]
+    ParseDate(#[from] chrono::ParseError),
+    #[error("Error parsing integer: {0}")]
+    ParseInt(#[from] num::ParseIntError),
+    #[error("Error parsing float: {0}")]
+    ParseFloat(#[from] num::ParseFloatError),
+    #[error("IO error: {0}")]
+    IO(#[from] io::Error),
 }

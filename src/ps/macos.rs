@@ -3,9 +3,9 @@ use crate::ps::{Process, Ps};
 use chrono::NaiveDateTime;
 use std::process::{Command, Output};
 
-pub struct AArch64;
+pub struct Macos;
 
-impl Ps for AArch64 {
+impl Ps for Macos {
     fn os_command() -> Result<Output, Error> {
         Ok(Command::new("ps")
             .args(["-eo", "pid,ppid,uid,lstart,pcpu,pmem,stat,args"])
@@ -36,23 +36,22 @@ impl Ps for AArch64 {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
-    use std::env::consts;
-    use crate::ps::macos::AArch64;
+    use crate::ps::macos::Macos;
     use crate::ps::Ps;
+    use std::env::consts;
 
     #[test]
-    fn test() {
-        //if consts::OS == "macos" {
-            let processes = AArch64::exec().unwrap();
+    fn macos_exec_integration_test() {
+        if consts::OS == "macos" {
+            let processes = Macos::exec().unwrap();
             assert!(processes.len() > 10);
             assert_eq!(processes[0].command, "/sbin/launchd");
-            assert_eq!(processes.last().unwrap().command, "ps -eo pid,ppid,uid,lstart,pcpu,pmem,stat,args")
-        //}
+            assert_eq!(
+                processes.last().unwrap().command,
+                "ps -eo pid,ppid,uid,lstart,pcpu,pmem,stat,args"
+            )
+        }
     }
-
-
-
 }

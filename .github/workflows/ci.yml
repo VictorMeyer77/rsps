@@ -19,7 +19,6 @@ jobs:
           - aarch64
         toolchain:
           - stable
-          - nightly
     continue-on-error: true
     steps:
       - name: Checkout repository

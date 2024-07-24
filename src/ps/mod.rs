@@ -1,5 +1,5 @@
 use crate::ps::error::Error;
-use crate::ps::macos::AArch64;
+use crate::ps::macos::Macos;
 use std::env::consts;
 use std::process::Output;
 
@@ -42,12 +42,10 @@ pub trait Ps {
 
 pub fn rsps() -> Result<Vec<Process>, Error> {
     match consts::OS {
-        "macos" => AArch64::exec(),
+        "macos" => Macos::exec(),
         _ => Err(Error::Unimplemented {
             os: consts::OS.to_string(),
             arch: consts::ARCH.to_string(),
         }),
     }
 }
-
-

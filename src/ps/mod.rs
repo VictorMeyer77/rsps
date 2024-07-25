@@ -1,11 +1,11 @@
 use crate::ps::error::Error;
-use crate::ps::macos::Macos;
+use crate::ps::unix::Unix;
 use std::env::consts;
 use std::process::Output;
-use log::{debug, info, warn, error};
+use log::warn;
 
 pub mod error;
-pub mod macos;
+pub mod unix;
 
 //todo uniformiser status
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
@@ -43,10 +43,9 @@ pub trait Ps {
 
 pub fn rsps() -> Result<Vec<Process>, Error> {
     match consts::OS {
-        "macos" => Macos::exec(),
-        _ => Err(Error::Unimplemented {
-            os: consts::OS.to_string(),
-            arch: consts::ARCH.to_string(),
-        }),
+        _ => Unix::exec()
+           // Err(Error::Unimplemented {
+           // os: consts::OS.to_string(),
+           // arch: consts::ARCH.to_string(),
     }
 }

@@ -44,7 +44,7 @@ mod tests {
 
     #[test]
     fn unix_integration_test() {
-        if ["unix", "macos", "android", "ios"].contains(&consts::OS) {
+        if ["linux", "macos", "android", "ios"].contains(&consts::OS) {
             let processes = Unix::exec().unwrap();
             assert!(processes.len() > 10);
             assert_eq!(

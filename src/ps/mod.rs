@@ -1,13 +1,12 @@
 use crate::ps::error::Error;
 use crate::ps::unix::Unix;
+use log::warn;
 use std::env::consts;
 use std::process::Output;
-use log::warn;
 
 pub mod error;
 pub mod unix;
 
-//todo uniformiser status
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct Process {
     pub pid: u32,        // Process ID
@@ -42,10 +41,12 @@ pub trait Ps {
 }
 
 pub fn rsps() -> Result<Vec<Process>, Error> {
-    match consts::OS {
-        _ => Unix::exec()
-           // Err(Error::Unimplemented {
-           // os: consts::OS.to_string(),
-           // arch: consts::ARCH.to_string(),
+    if ["linux", "macos", "android", "ios"].contains(&consts::OS) {
+        Unix::exec()
+    } else {
+        Err(Error::Unimplemented {
+            os: consts::OS.to_string(),
+            arch: consts::ARCH.to_string(),
+        })
     }
 }
